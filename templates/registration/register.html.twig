@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Formulaire de registration</h1>
+
+    {{ form_start(registrationForm) }}
+    <center><div class="row">
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.username) }}</div>
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.lastname) }}</div>   
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.datedenaissance) }}</div>
+    </div></center>
+    <div class="row">    
+        <center><div class="col-md-4 pt-3">{{ form_row(registrationForm.salaire) }}</div></center> 
+    </div>
+    <center><div class="row">    
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.lieudenaissance) }}</div>  
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.adresse) }}</div> 
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.sexe) }}</div>
+    </div></center>
+    <center><div class="row">    
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.age) }}</div> 
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.immatriculation) }}</div>
+        <div class="col-md-4 pt-3">{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}</div></center>
+    </div>
+    <div class="row">  
+        <center><div class="col-md-4 pt-3">{{ form_row(registrationForm.photo) }}</div></center>
+    </div>
+    <center><div class="row">  
+        <div class="col pt-3">{{ form_row(registrationForm.agreeTerms) }}</div>
+    </div>
+    <div class="row">  
+        <div class="col pt-3"><button type="submit" class="btn btn-success">Registration</button></div>
+    </div>
+    {{ form_end(registrationForm) }}
+    <center><a href="{{path('app_login')}}">Vous avez déjà un compte? Veuillez vous connecter ici</a></center>
+{% endblock %}

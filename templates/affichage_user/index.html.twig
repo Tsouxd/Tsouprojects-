@@ -1,0 +1,216 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: slideInLeftContainer 1.5s forwards;
+        }
+
+        @keyframes slideInLeftContainer {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .dashboard-heading {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: slideInLeftHeading 0.5s forwards;
+        }
+
+        @keyframes slideInLeftHeading {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .table-container {
+            overflow-x: auto;
+            animation: slideInLeftTable 0.5s forwards;
+        }
+
+        @keyframes slideInLeftTable {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<a href ="{{ path('app_logout') }}" class="btn btn-success">Déconnexion</a><br><br>
+    <div class="dashboard-container">
+        <center><div class="dashboard-heading">Liste des utilisateurs absentes</div></center>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">Motifs d'absence</th>
+                        <th class="text-center">Date d'absence</th>
+                        <th class="text-center">Nom de l'utilisateur absent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if affichageUser is empty %}
+                        <tr>
+                            <td class="text-center" colspan="5">Aucune utilisateur pour le moment</td>
+                        </tr>
+                    {% else %}
+                        {% for absence in affichageUser %}
+                            <tr class="text-center">
+                                <td class="text-center">{{ absence.motif }}</td>
+                                <td class="text-center">{{ absence.date|date('j F Y') }}</td>
+                                <td class="text-center">{{ absence.userAbsent|join(', ', ', ') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="dashboard-container">
+        <center><div class="dashboard-heading">Liste des utilisateurs présentes</div></center>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">Date de présence</th>
+                        <th class="text-center">Nom de l'utilisateur présent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if affichageUserPresent is empty %}
+                        <tr>
+                            <td class="text-center" colspan="5">Aucune utilisateur pour le moment</td>
+                        </tr>
+                    {% else %}
+                        {% for present in affichageUserPresent %}
+                            <tr class="text-center">
+                                <td class="text-center">{{ present.createdAt|date('j F Y') }}</td>
+                                <td class="text-center">{{ present.userPresent|join(', ', ', ') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="dashboard-container">
+        <center><div class="dashboard-heading">Liste des utilisateurs démissionnées</div></center>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">Motifs de démission</th>
+                        <th class="text-center">Date de démission</th>
+                        <th class="text-center">Nom de l'utilisateur démissionnée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if affichageUserNiala is empty %}
+                        <tr>
+                            <td class="text-center" colspan="5">Aucune utilisateur pour le moment</td>
+                        </tr>
+                    {% else %}
+                        {% for niala in affichageUserNiala %}
+                            <tr class="text-center">
+                                <td class="text-center">{{ niala.motif }}</td>
+                                <td class="text-center">{{ niala.date|date('j F Y') }}</td>
+                                <td class="text-center">{{ niala.userNiala|join(', ', ', ') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <center><div class="dashboard-heading">Food Planning pour le bien etre des utilisateurs</div></center>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">Nom de la nourriture</th>
+                        <th class="text-center">Planning du jour</th>
+                        <th class="text-center">Type de la nourriture</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if affichageFoodPlanning is empty %}
+                        <tr>
+                            <td class="text-center" colspan="5">Aucune planning disponible pour le moment</td>
+                        </tr>
+                    {% else %}
+                        {% for foodPlanning in affichageFoodPlanning %}
+                            <tr class="text-center">
+                                <td class="text-center">{{ foodPlanning.name }}</td>
+                                <td class="text-center">{{ foodPlanning.datefood|date('j F Y') }}</td>
+                                <td class="text-center">{{ foodPlanning.TypeFood }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}

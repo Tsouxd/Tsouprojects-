@@ -1,0 +1,7 @@
+# index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+# billet:
+#   path: /billet
+#   controller: App\Controller\Billet:index
